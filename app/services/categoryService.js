@@ -1,4 +1,4 @@
-const categoryRepository = require("..//database/repositories/categoryRepository");
+const categoryRepository = require("../database/repositories/categoryRepository");
 const expressAsyncHandler = require("express-async-handler");
 
 const createCategory = expressAsyncHandler(async (req, res) => {

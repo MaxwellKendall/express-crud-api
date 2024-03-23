@@ -1,10 +1,12 @@
-const productRepository = require("..//database/repositories/productRepository");
+const productRepository = require("../database/repositories/productRepository");
 const expressAsyncHandler = require("express-async-handler");
+const isValidCategoryId = require("../middleware/isValidCategoryId");
 
 const createProduct = expressAsyncHandler(async (req, res) => {
   try {
     const { name, description, price, quantityInStock, image, categoryId } =
       req.body;
+    await isValidCategoryId(categoryId, res);
     const result = await productRepository.createProduct(
       name,
       description,
