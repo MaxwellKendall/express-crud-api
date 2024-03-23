@@ -7,6 +7,7 @@ const connectDatabase = require("./app/database/databaseInit");
 const { SERVER_PORT } = require("./app/constants");
 const errorHandler = require("./app/middleware/errorHandlers");
 
+const productRouter = require("./app/routes/productRoutes");
 const cartRouter = require("./app/routes/cartRoutes");
 const orderRouter = require("./app/routes/orderRoutes");
 const categoryRouter = require("./app/routes/categoryRoutes");
@@ -61,6 +62,7 @@ app.use(
 
 // Using routers for different API endpoints
 app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/products", productRouter);
 app.use("/api/v1/carts", cartRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/users", userRouter);
