@@ -7,11 +7,10 @@ const connectDatabase = require("./app/database/databaseInit");
 const { SERVER_PORT } = require("./app/constants");
 const errorHandler = require("./app/middleware/errorHandlers");
 
-const userRouter = require("./app/routes/userRoutes");
-/* WRITE YOUR CODE HERE TO IMPORT ALL OTHER ROUTERS */
-
 const cartRouter = require("./app/routes/cartRoutes");
 const orderRouter = require("./app/routes/orderRoutes");
+const categoryRouter = require("./app/routes/categoryRoutes");
+const userRouter = require("./app/routes/userRoutes");
 
 const app = express();
 
@@ -61,11 +60,10 @@ app.use(
 );
 
 // Using routers for different API endpoints
-app.use("/api/v1/users", userRouter);
-/* WRITE YOUR CODE HERE TO USE OTHER ROUTERS FOR DIFFERENT API ENDPOINTS */
-
+app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/carts", cartRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/users", userRouter);
 
 // Endpoint to check if the server is running
 app.get("/PING", (_, res) => {
