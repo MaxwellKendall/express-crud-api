@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+var requestBodyParser = require("body-parser");
 
 // Importing necessary modules and middleware
 const connectDatabase = require("./app/database/databaseInit");
@@ -16,7 +17,31 @@ const app = express();
 
 var cors = require("cors");
 
-app.use(cors());
+/**
+ * Application Architecture:
+ * 1. Server.js is the callsite for routes/*
+ * 2. Routes/ is the callsite for services/*
+ * 3. Services/ is the callsite for database/repositories/*
+ * 4. Database/repositories/* is the callsite for database/models/*
+ */
+
+/**
+ * Implementations: Where functions are defined (function xyz () {})
+ * Callsites/References: Where functions are invoked (xyz())
+ */
+
+/*
+ * CROSS ORIGIN RESOURCE SHARING (CORS)
+ * CORS --> allows usaspending.gov to call api.usaspending.gov
+ * CORS --> allows localhost:3000 to call xyz.com/api (if xyz.com allows)
+ * CORS --> allow * to call my api (literally anyone can call my api)
+ *  -- IE: cors() and cors({ origin: "*" }) are the same thing.
+ * CORS --> whitelist (only origins from my-ecommerce-app.com can call api.my-ecommerce-app.com)
+ *  -- IE: cors({ origin: "my-ecommerce-app.com" })
+*/ 
+app.use(cors({
+  origin: "*"
+}));
 
 // Connecting to the database
 connectDatabase();
@@ -24,8 +49,6 @@ connectDatabase();
 // Parsing incoming requests as JSON and handling errors
 app.use(express.json());
 app.use(errorHandler);
-
-var requestBodyParser = require("body-parser");
 
 // Parsing request bodies
 app.use(requestBodyParser.json({ limit: "5mb" }));

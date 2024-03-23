@@ -11,7 +11,7 @@ const {
   login,
   logout,
 } = require("../services/userService");
-
+// api/v1/users
 userRouter.route("/").post(addUser);
 userRouter.route("/login").post(login);
 userRouter.route("/logout").get(auth, logout);
